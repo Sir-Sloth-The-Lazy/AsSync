@@ -1,0 +1,34 @@
+# ---------------------------------------------------------------------------
+# rise-asana-sync configuration
+# ---------------------------------------------------------------------------
+
+# Drop the team workbooks here. Anything matching *.xlsx is picked up;
+# Excel lock files (~$...) are ignored.
+input_folder: inbox
+
+build_folder: build       # parsed output + last run report
+state_folder: state       # Asana gids written by setup_asana.py
+log_folder: logs          # rotating sync.log
+
+# Asana targets. Fill these in, or set ASANA_WORKSPACE_GID / ASANA_TEAM_GID
+# in .env instead. README step 2 shows how to find them.
+workspace_gid: ""
+team_gid: ""              # optional; required in some Enterprise workspaces
+
+project_prefix: "RISE Q3 2026 — "
+portfolio_name: "RISE Q3 2026"
+
+# What to do with an Asana task whose source row has vanished from the Excel.
+#   flag     move it to a "No longer in source file" section, leave it open
+#   complete mark it done
+#   ignore   leave it exactly as is
+# Nothing is ever hard-deleted.
+stale_policy: flag
+
+# Render milestones as true Asana milestones (diamond markers on the timeline)
+# rather than ordinary tasks.
+milestones_as_asana_milestones: true
+
+# Stop before touching Asana if the parser reports errors. Leave false while
+# the source files still have known issues (see README "Known data issues").
+fail_on_parse_error: false
