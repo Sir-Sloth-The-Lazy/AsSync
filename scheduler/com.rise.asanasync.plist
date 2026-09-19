@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  macOS daily run.
+    1. Replace /ABSOLUTE/PATH/TO with your real folder path
+    2. cp scheduler/com.rise.asanasync.plist ~/Library/LaunchAgents/
+    3. launchctl load ~/Library/LaunchAgents/com.rise.asanasync.plist
+  Unload with: launchctl unload ~/Library/LaunchAgents/com.rise.asanasync.plist
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.rise.asanasync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/ABSOLUTE/PATH/TO/rise-asana-sync/.venv/bin/python</string>
+        <string>/ABSOLUTE/PATH/TO/rise-asana-sync/run_sync.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/ABSOLUTE/PATH/TO/rise-asana-sync</string>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key><integer>7</integer>
+        <key>Minute</key><integer>30</integer>
+    </dict>
+
+    <!-- Run on wake if the scheduled time was missed -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/ABSOLUTE/PATH/TO/rise-asana-sync/logs/scheduler.out</string>
+    <key>StandardErrorPath</key>
+    <string>/ABSOLUTE/PATH/TO/rise-asana-sync/logs/scheduler.err</string>
+</dict>
+</plist>
