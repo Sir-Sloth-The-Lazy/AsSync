@@ -1,0 +1,6 @@
+# Linux / macOS cron alternative to launchd.
+# Install with:  crontab -e   then paste the line below (edit the path).
+#
+# Runs 07:30 every weekday. Cron has a minimal PATH, so use absolute paths.
+
+30 7 * * 1-5 cd /ABSOLUTE/PATH/TO/rise-asana-sync && .venv/bin/python run_sync.py >> logs/scheduler.out 2>&1
