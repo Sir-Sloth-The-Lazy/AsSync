@@ -163,10 +163,10 @@ class AsanaSync:
         }
         if rec.record_kind == "milestone":
             data["due_on"] = rec.week_end
-            if rec.start_on and rec.start_on != rec.week_end:
+            as_milestone = self.config.get("milestones_as_asana_milestones")
+            data["resource_subtype"] = "milestone" if as_milestone else "default_task"
+            if not as_milestone and rec.start_on and rec.start_on != rec.week_end:
                 data["start_on"] = rec.start_on
-            data["resource_subtype"] = "milestone" if self.config.get(
-                "milestones_as_asana_milestones") else "default_task"
         return data
 
     # ------------------------------------------------------------------
@@ -204,7 +204,7 @@ class AsanaSync:
             if isinstance(value, dict):        # date field
                 want = value.get("date")
             else:
-                # Enum gids were resolved on the way in; compare by option name.
+                # Enum g_ids were resolved on the way in; compare by option name.
                 for fname, meta in self.fields.items():
                     if meta.get("gid") == gid and meta.get("enum_options"):
                         want = next((n for n, g in meta["enum_options"].items() if g == value), value)
